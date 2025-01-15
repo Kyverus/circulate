@@ -1,0 +1,17 @@
+{% extends "main_layout.html" %}
+
+{% block title  %}
+    Register User
+{% endblock  %}
+
+{% block content %}
+    <h1>Register User</h1>
+
+    <div class="form-container">
+        <form class="custom-form" action="{% url 'users:register' %}" method="post">
+            {% csrf_token %}
+            {{form}}
+            <button>Submit</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block title  %} Kyverus Game Hub{% endblock  %}</title>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="{% url "home" %}">HOME</a>
+            <a href="{% url "home" %}">CHARACTERS</a>
+            <a href="{% url "home" %}">NEWS</a>
+        </div>
+       
+        <div>
+            {% if user.is_authenticated %}
+            <form class="logout-form" action="{% url "users:logout" %}" method="post" >
+                {% csrf_token %}
+                <button>LOGOUT</button>
+            </form>
+            {% else %}
+            <a href="{% url "users:register" %}">REGISTER</a>
+            <a href="{% url "users:login" %}">LOGIN</a>
+            {% endif %}
+        </div>
+        
+    </nav>
+
+    {% block content %}
+    {% endblock  %}
+</body>
+</html>

@@ -1,2 +1,2 @@
-# kyverus-game-hub
+# circulate
 A blogging platform application using Django

@@ -1,5 +1,5 @@
 """
-ASGI config for kyverus_game_hub project.
+ASGI config for circulate project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'kyverus_game_hub.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'circulate.settings')
 
 application = get_asgi_application()

@@ -1,20 +1,29 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
+    <title>{% block title  %} Kyverus Game Hub{% endblock  %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <title>{% block title  %} Kyverus Game Hub{% endblock  %}</title>
+    {% tailwind_css %}
 </head>
-<body>
-    <nav>
+<body class="bg-black text-white">
+    {%  with namespace=request.resolver_match.namespace url_name=request.resolver_match.url_name %}
+    <nav class="bg-blue-400 flex justify-between px-5 py-2 border-black border-2">
         <div>
-            <a href="{% url "home" %}">HOME</a>
-            <a href="{% url "home" %}">CHARACTERS</a>
-            <a href="{% url "home" %}">NEWS</a>
+            <a 
+                class = "{% if url_name == 'home' %}text-green-900{% endif %} font-bold"  
+                href="{% url "home" %}"
+            >HOME</a>
+            <a 
+                class = "{% if url_name == 'home' %}text-green-900{% endif %} font-bold" 
+                href="{% url "home" %}"
+            >CHARACTERS</a>
+            <a 
+                class="{% if url_name == 'home' %}text-green-900{% endif %} font-bold"
+                href="{% url "home" %}"
+            >NEWS</a>
         </div>
-       
         <div>
             {% if user.is_authenticated %}
             <form class="logout-form" action="{% url "users:logout" %}" method="post" >
@@ -22,12 +31,18 @@
                 <button>LOGOUT</button>
             </form>
             {% else %}
-            <a href="{% url "users:register" %}">REGISTER</a>
-            <a href="{% url "users:login" %}">LOGIN</a>
+            <a 
+                class="{% if namespace == 'users' and url_name == 'register' %}text-green-900{% endif %} font-bold" 
+                href="{% url "users:register" %}"
+            >REGISTER</a>
+            <a  
+                class="{% if namespace == 'users' and url_name == 'login' %}text-green-900{% endif %} font-bold" 
+                href="{% url "users:login" %}"
+            >LOGIN</a>
             {% endif %}
         </div>
-        
     </nav>
+    {% endwith %}
 
     {% block content %}
     {% endblock  %}

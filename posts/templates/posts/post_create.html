@@ -1,0 +1,22 @@
+{% extends "main_layout.html" %}
+
+{% block title  %}
+    Create Post
+{% endblock  %}
+
+{% block content %}
+<h1>Create post</h1>
+
+<div class="container mx-auto max-w-[800px]">
+    <form class="custom-form" action="{% url "posts:create" %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {{form}}
+        </div>
+        <button class="my-10 px-5 py-2 w-[600px] bg-[cadetblue] outline-none border-none" >
+            Create Post
+        </button>
+    </form>
+</div>
+
+{% endblock  %}

@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,45 +7,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/custom.css'%}">
 </head>
-<body class="bg-black text-white">
-    {%  with namespace=request.resolver_match.namespace url_name=request.resolver_match.url_name %}
-    <nav class="bg-blue-400 flex justify-between px-5 py-2 border-black border-2">
-        <div>
-            <a 
-                class = "{% if url_name == 'home' %}text-green-900{% endif %} font-bold"  
-                href="{% url "home" %}"
-            >HOME</a>
-            <a 
-                class = "{% if url_name == 'home' %}text-green-900{% endif %} font-bold" 
-                href="{% url "home" %}"
-            >CHARACTERS</a>
-            <a 
-                class="{% if url_name == 'home' %}text-green-900{% endif %} font-bold"
-                href="{% url "home" %}"
-            >NEWS</a>
-        </div>
-        <div>
-            {% if user.is_authenticated %}
-            <form class="logout-form" action="{% url "users:logout" %}" method="post" >
-                {% csrf_token %}
-                <button>LOGOUT</button>
-            </form>
-            {% else %}
-            <a 
-                class="{% if namespace == 'users' and url_name == 'register' %}text-green-900{% endif %} font-bold" 
-                href="{% url "users:register" %}"
-            >REGISTER</a>
-            <a  
-                class="{% if namespace == 'users' and url_name == 'login' %}text-green-900{% endif %} font-bold" 
-                href="{% url "users:login" %}"
-            >LOGIN</a>
-            {% endif %}
-        </div>
-    </nav>
-    {% endwith %}
-
-    {% block content %}
-    {% endblock  %}
+<body class="bg-gradient-to-b from-[#000000] to-[#03040a] text-white">
+    <div class="bg-pattern min-h-dvh">
+        {%  with namespace=request.resolver_match.namespace url_name=request.resolver_match.url_name %}
+        <nav class="bg-blue-400 flex justify-between px-5 py-2">
+            <div>
+                <a 
+                    class = "{% if url_name == 'home' %}text-blue-950{% endif %} font-bold"  
+                    href="{% url "home" %}"
+                >HOME</a>
+            </div>
+            <div class="flex space-x-2">
+                {% if user.is_authenticated %}
+                <a 
+                class="{% if namespace == 'profile' and url_name == 'index' %}text-blue-950{% endif %} font-bold"
+                href="{% url 'profile:index' public_name=user %}"
+                >PROFILE</a>
+                <form class="logout-form" action="{% url "users:logout" %}" method="post" >
+                    {% csrf_token %}
+                    <button>LOGOUT</button>
+                </form>
+                {% else %}
+                <a 
+                    class="{% if namespace == 'users' and url_name == 'register' %}text-blue-950{% endif %} font-bold" 
+                    href="{% url "users:register" %}"
+                >REGISTER</a>
+                <a  
+                    class="{% if namespace == 'users' and url_name == 'login' %}text-blue-950{% endif %} font-bold" 
+                    href="{% url "users:login" %}"
+                >LOGIN</a>
+                {% endif %}
+            </div>
+        </nav>
+        {% endwith %}
+    
+        {% block content %}
+        {% endblock  %}
+    </div>
 </body>
 </html>

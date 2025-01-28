@@ -1,0 +1,40 @@
+.bg-pattern {
+  background-image: url("../texture.svg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+.custom-form {
+  font-size: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.custom-form input {
+  color: #0b0d0c;
+  display: block;
+  box-sizing: border-box;
+  width: 600px;
+  padding: 5px;
+  margin: 10px 0px;
+}
+
+.custom-form input[type="checkbox"] {
+  display: inline;
+  width: 20px;
+  height: 20px;
+}
+
+.custom-form textarea {
+  color: #0b0d0c;
+  display: block;
+  box-sizing: border-box;
+  width: 600px;
+  padding: 5px;
+  margin: 10px 0px;
+}

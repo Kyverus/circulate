@@ -1,13 +1,13 @@
 {% extends "main_layout.html" %}
 
 {% block title %}
-    Update Profile
+    Update Post
 {% endblock  %}
 
 {% block content %}
 <div class="container mx-auto max-w-[800px] mt-10">
-    <h1 class="text-center font-bold">Update Profile</h1>
-    <form class="custom-form" action="{% url "profile:update" %}" method="post" enctype="multipart/form-data">
+    <h1 class="text-center font-bold">Update Post</h1>
+    <form class="custom-form" action="{% url "posts:update" post_slug=post.slug %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div>
             {{form}}

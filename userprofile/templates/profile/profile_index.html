@@ -4,6 +4,9 @@
 <div class="container md:w-[700px] mx-auto flex flex-col mt-5 gap-4">
     {% for post in posts  %}
     <div>
+        <div class="flex justify-end space-x-2">
+            <a href="{% url "posts:update" post_slug=post.slug %}" class="px-5 bg-blue-600">EDIT POST</a>
+        </div>
         <div class="max-w-[800px]">
             <img src="{{post.banner.url}}" alt="{{post.title}}">
         </div>

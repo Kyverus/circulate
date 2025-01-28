@@ -30,6 +30,10 @@
   height: 20px;
 }
 
+.custom-form input[type="file"] {
+  color: whitesmoke;
+}
+
 .custom-form textarea {
   color: #0b0d0c;
   display: block;

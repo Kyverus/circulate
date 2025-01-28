@@ -10,19 +10,19 @@
     <link rel="stylesheet" href="{% static 'css/custom.css'%}">
 </head>
 <body class="bg-gradient-to-b from-[#000000] to-[#03040a] text-white">
-    <div class="bg-pattern min-h-dvh">
+    <div class="bg-pattern min-h-dvh pb-10">
         {%  with namespace=request.resolver_match.namespace url_name=request.resolver_match.url_name %}
-        <nav class="bg-blue-400 flex justify-between px-5 py-2">
+        <nav class="bg-blue-950 flex justify-between px-5 py-2">
             <div>
                 <a 
-                    class = "{% if url_name == 'home' %}text-blue-950{% endif %} font-bold"  
+                    class = "{% if url_name == 'home' %}text-blue-400{% endif %} font-bold"  
                     href="{% url "home" %}"
                 >HOME</a>
             </div>
             <div class="flex space-x-2">
                 {% if user.is_authenticated %}
                 <a 
-                class="{% if namespace == 'profile' and url_name == 'index' %}text-blue-950{% endif %} font-bold"
+                class="{% if namespace == 'profile' and url_name == 'index' %}text-blue-400{% endif %} font-bold"
                 href="{% url 'profile:index' public_name=user %}"
                 >PROFILE</a>
                 <form class="logout-form" action="{% url "users:logout" %}" method="post" >
@@ -31,11 +31,11 @@
                 </form>
                 {% else %}
                 <a 
-                    class="{% if namespace == 'users' and url_name == 'register' %}text-blue-950{% endif %} font-bold" 
+                    class="{% if namespace == 'users' and url_name == 'register' %}text-blue-400{% endif %} font-bold" 
                     href="{% url "users:register" %}"
                 >REGISTER</a>
                 <a  
-                    class="{% if namespace == 'users' and url_name == 'login' %}text-blue-950{% endif %} font-bold" 
+                    class="{% if namespace == 'users' and url_name == 'login' %}text-blue-400{% endif %} font-bold" 
                     href="{% url "users:login" %}"
                 >LOGIN</a>
                 {% endif %}

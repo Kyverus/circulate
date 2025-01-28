@@ -1,0 +1,39 @@
+{% extends "main_layout.html" %}
+
+{% block title %} 
+    Profile
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mx-auto py-10">
+        <div class="flex gap-4 rounded-t-xl bg-blue-950/70">
+            <div class="p-2 size-[200px]">
+                <img class="border-2 border-blue-500 rounded-full" src="{{profileDetails.avatar.url}}" alt="{{profileDetails.public_name}}">
+            </div>
+            
+            <div class="self-center">
+                <h1>PUBLIC NAME: {{profileDetails.public_name}}</h1>
+    
+                {% if profileDetails.contact_number %}
+                    <h1>CONTACT NUMBER: {{profileDetails.contact_number}}</h1>
+                {% endif %}
+            </div>  
+        </div>
+        {% if user.is_authenticated %}
+        <div class="flex justify-end space-x-2">
+            <a href="{% url "profile:update" %}" class="px-5 bg-blue-500">EDIT PROFILE</a>
+            <a href="{% url "posts:create" %}" class="px-5 bg-blue-500">CREATE POST</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% block posts  %} {% endblock  %}
+
+{% endblock %}
+
+
+
+
+
+

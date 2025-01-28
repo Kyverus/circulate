@@ -27,7 +27,6 @@ def login_user(request):
         form = AuthenticationForm()
     return render(request, "users/user_login.html", {"form": form})
 
-
 def logout_user(request):
     if request.method == "POST":
         logout(request)

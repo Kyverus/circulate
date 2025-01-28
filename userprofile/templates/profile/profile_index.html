@@ -1,13 +1,7 @@
-{% extends "main_layout.html" %}
+{% extends "profile/profile_layout.html" %}
 
-{% block title %} 
-    Home
-{% endblock %}
-
-{% block content %}
-
-<div class="container md:w-[700px] mx-auto flex flex-col mt-10 gap-4">
-
+{% block posts %}
+<div class="container md:w-[700px] mx-auto flex flex-col mt-5 gap-4">
     {% for post in posts  %}
     <div>
         <div class="max-w-[800px]">
@@ -15,12 +9,17 @@
         </div>
         <div class="py-2 px-5 bg-blue-950/70">
             <h1>{{post.title}}</h1>
+            <h2>visibility: 
+                {% if post.private %}
+                private
+                {% else %}
+                public
+                {% endif %}
+            </h2>
             <h2>{{post.date}}</h2>
             <h2>{{post.author}}</h2>
         </div>
     </div>
-
     {% endfor %}
-
-</div>
+</div>  
 {% endblock %}

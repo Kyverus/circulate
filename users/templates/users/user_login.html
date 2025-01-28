@@ -5,16 +5,19 @@
 {% endblock  %}
 
 {% block content %}
-    <h1>Login User</h1>
-
-    <div class="form-container">
+    <div class="container mx-auto max-w-[800px] mt-10">
+        <h1 class="text-center font-bold">Login User</h1>
         <form class="custom-form" action="{% url 'users:login' %}" method="post">
             {% csrf_token %}
-            {{form}}
-            {% if request.GET.next %}
-                <input type="hidden" name="next" value="{{ request.GET.next }}">
-            {% endif %}
-            <button>Submit</button>
+            <div>
+                {{form}}
+                {% if request.GET.next %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+            </div>
+            <button class="my-10 px-5 py-2 w-[600px] bg-[cadetblue] outline-none border-none">
+                LOGIN
+            </button>
         </form>
     </div>
 {% endblock %}

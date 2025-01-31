@@ -13,10 +13,22 @@ def post_create(request):
             newpost = form.save(commit=False)
             newpost.author = request.user
             newpost.save()
-            return redirect("profile:index", request.user)
+            return redirect("profile:index", request.user.profile.public_name)
     else:
         form = forms.CreatePost()
     return render(request, "posts/post_create.html", {"form": form})
+
+@login_required(login_url='/users/login/')
+def post_update(request, post_slug):
+    obj = Post.objects.get(slug=post_slug)
+
+    form = forms.UpdatePost(instance=obj)
+    if request.method == "POST":
+        form = forms.UpdatePost(request.POST, request.FILES, instance=obj)
+        if form.is_valid:
+            form.save()
+            return redirect("profile:index", request.user.profile.public_name)
+    return render(request, "posts/post_update.html", {"form": form, "post": obj})
 
 
 

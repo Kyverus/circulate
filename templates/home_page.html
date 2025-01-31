@@ -10,13 +10,37 @@
 
     {% for post in posts  %}
     <div>
+        <div class="flex justify-between space-x-2 bg-blue-950/70 p-2">
+            <a href="{% url 'profile:index' public_name=post.author.profile.public_name %}">
+            <div class="flex items-center space-x-2">  
+               
+                    <div class="size-11">
+                        <img src="{{post.author.profile.avatar.url}}" alt="{{post.author.profile.public_name}}">
+                    </div>
+                <div>
+                    <h2>@{{post.author}}</h2>
+                    <h2>{{post.date}}</h2>
+                </div>
+            </div>
+            </a>
+            <div class="flex items-center space-x-2">
+                {% if post.private %}
+                <div title="Private">
+                    {% heroicon_outline "lock-closed" size=20 class="text-white" %}
+                </div>
+                {% else %}
+                <div title="Public">
+                    {% heroicon_outline "globe-alt" size=20 class="text-white" %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
         <div class="max-w-[800px]">
             <img src="{{post.banner.url}}" alt="{{post.title}}">
         </div>
         <div class="py-2 px-5 bg-blue-950/70">
-            <h1>{{post.title}}</h1>
-            <h2>{{post.date}}</h2>
-            <h2>{{post.author}}</h2>
+            <h1 class="font-bold py-2">{{post.title}}</h1>
+            <p>{{post.body}}</p>
         </div>
     </div>
 

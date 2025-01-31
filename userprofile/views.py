@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request, public_name):
-    user = User.objects.get(username=public_name)
+    profile = Profile.objects.get(public_name=public_name)
+    user = User.objects.get(profile=profile)
     userProfile = Profile.objects.get(user=user)
 
     if userProfile.user == request.user:
@@ -16,13 +17,13 @@ def index(request, public_name):
     else:
         print("not match")
         if userProfile.private:
-            profileDetails = {"avatar": userProfile.avatar, "public_name": userProfile.public_name, "private": userProfile.private}
+            profileDetails = {"avatar": userProfile.avatar, "banner": userProfile.banner, "public_name": userProfile.public_name, "private": userProfile.private}
             print("private")
         else:
             profileDetails = userProfile
             print("not private")
         
-    if request.user.is_authenticated:
+    if userProfile.user == request.user:
         posts = Post.objects.filter(author=user)
     else:
         posts = Post.objects.filter(author=user, private=False)
@@ -36,5 +37,5 @@ def update(request):
         form = forms.UpdateProfile(request.POST,request.FILES, instance=obj)
         if form.is_valid():
             form.save()
-            return redirect("profile:index", request.user)
+            return redirect("profile:index", request.user.profile.public_name)
     return render(request, "profile/profile_update.html", {"form": form})

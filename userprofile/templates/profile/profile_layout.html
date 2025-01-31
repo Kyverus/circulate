@@ -6,8 +6,12 @@
 
 {% block content %}
 
+<div class="bg-gray-900">
     <div class="container mx-auto py-10">
-        <div class="flex gap-4 rounded-t-xl bg-blue-950/70">
+        <div class="w-full h-full rounded-t-xl overflow-hidden">
+            <img class="object-cover h-[300px] w-full" src="{{profileDetails.banner.url}}" alt="">
+        </div>
+        <div class="flex gap-4 bg-blue-950/70">
             <div class="p-2 size-[200px]">
                 <img class="border-2 border-blue-500 rounded-full" src="{{profileDetails.avatar.url}}" alt="{{profileDetails.public_name}}">
             </div>
@@ -20,13 +24,25 @@
                 {% endif %}
             </div>  
         </div>
-        {% if user.is_authenticated %}
-        <div class="flex justify-end space-x-2">
-            <a href="{% url "profile:update" %}" class="px-5 bg-blue-500">EDIT PROFILE</a>
-            <a href="{% url "posts:create" %}" class="px-5 bg-blue-500">CREATE POST</a>
+        {% if user.is_authenticated and user.profile.public_name == profileDetails.public_name %}
+        <div class="flex items-center justify-between mt-5 px-5">
+            {%  with namespace=request.resolver_match.namespace url_name=request.resolver_match.url_name %}
+            <div>
+                <a href="#" class="px-5 py-1 {% if namespace == 'profile' and url_name == 'index' %}bg-blue-600{%else%}bg-slate-600{% endif %}" >POSTS</a>
+                <a href="#" class="px-5 py-1 {% if namespace == 'profile' and url_name == 'register' %}bg-blue-600{%else%}bg-slate-600{% endif %}" >DASHBOARD</a>
+                <a href="#" class="px-5 py-1 {% if namespace == 'profile' and url_name == 'register' %}bg-blue-600{%else%}bg-slate-600{% endif %}" >FOLLOWING</a>
+                <a href="#" class="px-5 py-1 {% if namespace == 'profile' and url_name == 'register' %}bg-blue-600{%else%}bg-slate-600{% endif %}" >FOLLOWERS</a>
+            </div>
+            {% endwith %}
+            <div class="space-x-2">
+                <a href="{% url "profile:update" %}" class="px-5 py-1 bg-blue-600">EDIT PROFILE</a>
+                <a href="{% url "posts:create" %}" class="px-5 py-1 bg-blue-600">CREATE POST</a>
+            </div>
         </div>
         {% endif %}
     </div>
+</div>
+
 
     {% block posts  %} {% endblock  %}
 

@@ -4,23 +4,40 @@
 <div class="container md:w-[700px] mx-auto flex flex-col mt-5 gap-4">
     {% for post in posts  %}
     <div>
-        <div class="flex justify-end space-x-2">
-            <a href="{% url "posts:update" post_slug=post.slug %}" class="px-5 bg-blue-600">EDIT POST</a>
+        <div class="flex justify-between space-x-2 bg-blue-950/70 p-2">
+            <div class="flex items-center space-x-2">
+                <div class="size-11">
+                    <img src="{{profileDetails.avatar.url}}" alt="{{profileDetails.public_name}}">
+                </div>   
+                <div>
+                    <h2>@{{post.author}}</h2>
+                    <h2>{{post.date}}</h2>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                {% if user.is_authenticated %}
+                <div class="flex flex-col items-center justify-center">
+                    <a type="button" href="{% url "posts:update" post_slug=post.slug %}" class="px-5 bg-blue-600">EDIT POST</a>
+                </div>
+                {% endif %}
+                {% if post.private %}
+                <div title="Private">
+                    {% heroicon_outline "lock-closed" size=20 class="text-white" %}
+                </div>
+                {% else %}
+                <div title="Public">
+                    {% heroicon_outline "globe-alt" size=20 class="text-white" %}
+                </div>
+                {% endif %}
+            </div>
         </div>
         <div class="max-w-[800px]">
             <img src="{{post.banner.url}}" alt="{{post.title}}">
         </div>
         <div class="py-2 px-5 bg-blue-950/70">
-            <h1>{{post.title}}</h1>
-            <h2>visibility: 
-                {% if post.private %}
-                private
-                {% else %}
-                public
-                {% endif %}
-            </h2>
-            <h2>{{post.date}}</h2>
-            <h2>{{post.author}}</h2>
+            <h1 class="font-bold py-2">{{post.title}}</h1>
+            <p>{{post.body}}</p>
         </div>
     </div>
     {% endfor %}

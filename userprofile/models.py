@@ -5,9 +5,10 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     date_modified = models.DateTimeField(User, auto_now=True)
     avatar = models.ImageField(default='avatars/default_avatar.png', blank=True, upload_to="avatars")
+    banner = models.ImageField(default='profile_banners/default_banner.png', blank=True, upload_to="profile_banners")
     public_name = models.SlugField(max_length=60, blank=True)
     private = models.BooleanField(default=True)
     contact_number = models.CharField(max_length=20, blank=True)
